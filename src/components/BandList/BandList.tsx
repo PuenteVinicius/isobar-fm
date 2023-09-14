@@ -30,6 +30,7 @@ const BandList = ({ bands, searchPerformed }: BandListProps) => {
               className="band-list-item"
               onClick={() => navigate(`band/${band.id}`)}
               key={`band-${band.name}`}
+              data-testid={`band-${band.name}`}
             >
               <img
                 className="band-list-item__image"

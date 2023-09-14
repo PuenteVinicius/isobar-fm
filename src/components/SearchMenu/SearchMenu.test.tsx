@@ -1,6 +1,11 @@
-import { render, screen } from "@testing-library/react";
-import BandList from "./BandList";
+import { fireEvent, render, screen } from "@testing-library/react";
+import SearchMenu from "./SearchMenu";
 import { BrowserRouter } from "react-router-dom";
+import Band from "../../lib/band/model";
+
+const conditionHandler = (bands: Band[]) => {
+  console.log(bands);
+};
 
 const mockedBands = [
   {
@@ -31,21 +36,26 @@ const mockedBands = [
   },
 ];
 
-describe("On Render BandList Component", () => {
+describe("On Render SearchMenu Component", () => {
   render(
     <BrowserRouter>
-      {<BandList bands={mockedBands} searchPerformed={true} />}
+      {
+        <SearchMenu
+          shouldShowMenu={true}
+          filteredBands={mockedBands}
+          onConditionChange={(bands: Band[]) => conditionHandler(bands)}
+        />
+      }
     </BrowserRouter>
   );
-  test("Should render at least one render one Band with props", async () => {
-    const bandName = screen.getByText(/Nickelback/i);
-    const numPlays = screen.getByText(/17605491/i);
-    const firstBand = await screen.findByTestId("band-Nickelback");
+  test("Should render the Ordem alfabetica when filter is oppened", async () => {
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
 
-    expect(bandName).toBeInTheDocument();
+    const alphabeticOrderOption = screen.getByText(/Ordem alfabetica/i);
+    const numPlays = screen.getByText(/Popularidade/i);
+
+    expect(alphabeticOrderOption).toBeInTheDocument();
     expect(numPlays).toBeInTheDocument();
-    expect(firstBand).toContainHTML(
-      `src="https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png`
-    );
   });
 });
