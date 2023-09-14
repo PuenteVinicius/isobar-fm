@@ -7,4 +7,4 @@ const getBands = async (): Promise<Band[]> => await API.get(BANDS_URL);
 
 export default getBands;
 
-export const getBandById = async (bandId: string): Promise<Band> => await API.get(`${BANDS_URL}/:${bandId}`);
+export const getBandById = async (bandId: string): Promise<Band> => await API.get(`${BANDS_URL}/${bandId}`);
