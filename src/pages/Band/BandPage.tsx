@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Band from "../../lib/band/model";
 import { getBandById } from "../../lib/band/service";
+import "./BandPage.css";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BandPage = () => {
   const { bandId } = useParams<string>();
@@ -22,28 +25,30 @@ const BandPage = () => {
   };
 
   return (
-    <div>
-      <h1>Band page</h1>
-      <div>{band?.id}</div>
-      <div>{band?.image}</div>
-      <div>{band?.name}</div>
-      <div>{band?.numPlays}</div>
-      <ul>
-        {band?.albums.map((albumId) => (
-          <li>
-            <div
-              onClick={() =>
-                navigate(`/album/${albumId}`, {
-                  replace: true,
-                })
-              }
-            >
-              {albumId}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <main>
+      <header className="band-page-header">
+        <p className="band-page-header__title">
+          Isobar.<span>fm</span>
+        </p>
+        <FontAwesomeIcon
+          onClick={() => navigate(-1)}
+          className="band-page-header__icon"
+          icon={icon({ name: "arrow-left" })}
+        />
+      </header>
+      <div className="band-page__img-wrapper">
+        <img className="band-page__img" src={band?.image} alt="" />
+        <h1 className="band-page__title">{band?.name}</h1>
+        <img className="band-page__small-img" src={band?.image} alt="" />
+      </div>
+      <div className="band-page">
+        <p className="band-page__info">
+          <span className="band-page-info__text">{band?.genre}</span>
+          <span className="band-page-info__text">{band?.numPlays} Plays</span>
+        </p>
+        <p className="band-page__description">{band?.biography}</p>
+      </div>
+    </main>
   );
 };
 
