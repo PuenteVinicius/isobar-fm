@@ -1,4 +1,3 @@
-import AlbumPage from "./Album/AlbumPage";
 import BandPage from "./Band/BandPage";
 import Home from "./Home/Home";
 
@@ -18,11 +17,6 @@ const pagesData: routerType[] = [
     path: "band/:bandId",
     element: <BandPage />,
     title: "band",
-  },
-  {
-    path: "album/:albumId",
-    element: <AlbumPage />,
-    title: "album",
   },
 ];
 
